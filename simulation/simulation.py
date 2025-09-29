@@ -26,9 +26,9 @@ def run_reactor_simulation_final(fault_type='none', fault_time=80, fault_magnitu
     # 1. --- Constants and Initial Conditions ---
 
     # Reaction properties for Benzene Nitration
-    Ea = 8.42e4      # Activation Energy (J/mol)
+    Ea = 8.3e4      # Activation Energy (J/mol)
     R = 8.314       # Gas Constant (J/mol·K)
-    k0 = 3.38e8        # Pre-exponential factor (m^3/mol·s)
+    k0 = 2.86e8        # Pre-exponential factor (m^3/mol·s)
     deltaH = -1.35e5 # Heat of reaction (J/mol)
 
     # Physical Properties of individual components
@@ -43,7 +43,7 @@ def run_reactor_simulation_final(fault_type='none', fault_time=80, fault_magnitu
     MW_NB = 123.11    # Nitrobenzene (C6H5NO2) - for reference
 
     # Mixed Acid Feed Composition & Properties
-    acid_wt_percent_HNO3 = 24
+    acid_wt_percent_HNO3 = 24.9
     acid_density = 1680 # kg/m^3
     Cp_feed = 2760      # Heat capacity of mixed acid feed (J/kg·K)
     T_feed = 298.15     # Feed temperature (25°C)
@@ -64,7 +64,7 @@ def run_reactor_simulation_final(fault_type='none', fault_time=80, fault_magnitu
     # Feed Flow Rate and Duration
     feed_duration_min = 120
     feed_duration_s = feed_duration_min * 60
-    target_mole_ratio = 1.2
+    target_mole_ratio = 1.23
     total_moles_A_to_add = moles_B_initial * target_mole_ratio
     required_feed_volume = total_moles_A_to_add / C_A_feed
     F_in = required_feed_volume / feed_duration_s
@@ -84,8 +84,8 @@ def run_reactor_simulation_final(fault_type='none', fault_time=80, fault_magnitu
     Pressure_max = 1.4
 
     # PI Controller parameters (Corrected for reverse-acting cooling)
-    Kc = -0.9
-    tau_i = 5.1
+    Kc = -0.8
+    tau_i = 5.0
     integral_error = 0.0
 
     # Noise parameters
@@ -95,7 +95,7 @@ def run_reactor_simulation_final(fault_type='none', fault_time=80, fault_magnitu
     noise_std_dev_temp_sensor = 0.1
 
     # Simulation Time
-    t_final = 300
+    t_final = 250
     dt = 0.1
     n_steps = int(t_final / dt)
     time = np.linspace(0, t_final, n_steps + 1)
