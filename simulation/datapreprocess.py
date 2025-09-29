@@ -8,7 +8,7 @@ def preprocess(filepath,values):
     df= df.rename(columns={'Temperature_Measured_K':'ReactorTemp'})
     df = df.iloc[::5, :].reset_index(drop=True)
     # Filter dataframe for Time_min <= 78
-    df_segment = df[df['Time_min'] <= 140]
+    df_segment = df[df['Time_min'] <= 78]
 
     # Calculate how many times to repeat the values to cover df_segment length
     repeat_times = -(-len(df_segment) // len(values))  # Ceiling division
@@ -37,8 +37,8 @@ if __name__ == '__main__':
     336.2875021, 336.2390678, 324.4782052, 336.1221035, 336.073106, 336.0234377,
     317.4586577
     ])
-    filepath='simdata/normal_operation_nitration_dynamic3.csv'
+    filepath='simdata/normal_operation_nitration_dynamic6.csv'
     normal_data = preprocess(filepath,values)
-    normal_data.to_csv('../raw/normal/normalbatch3.csv', index=False)
+    normal_data.to_csv('../raw/normal/normalbatch6.csv', index=False)
     print("Data saved to 'raw/normal/batch.csv'")
 

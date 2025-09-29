@@ -26,9 +26,9 @@ def run_reactor_simulation_final(fault_type='none', fault_time=80, fault_magnitu
     # 1. --- Constants and Initial Conditions ---
 
     # Reaction properties for Benzene Nitration
-    Ea = 8.4e4      # Activation Energy (J/mol)
+    Ea = 8.42e4      # Activation Energy (J/mol)
     R = 8.314       # Gas Constant (J/mol·K)
-    k0 = 1e8        # Pre-exponential factor (m^3/mol·s)
+    k0 = 3.38e8        # Pre-exponential factor (m^3/mol·s)
     deltaH = -1.35e5 # Heat of reaction (J/mol)
 
     # Physical Properties of individual components
@@ -43,7 +43,7 @@ def run_reactor_simulation_final(fault_type='none', fault_time=80, fault_magnitu
     MW_NB = 123.11    # Nitrobenzene (C6H5NO2) - for reference
 
     # Mixed Acid Feed Composition & Properties
-    acid_wt_percent_HNO3 = 24.9
+    acid_wt_percent_HNO3 = 24
     acid_density = 1680 # kg/m^3
     Cp_feed = 2760      # Heat capacity of mixed acid feed (J/kg·K)
     T_feed = 298.15     # Feed temperature (25°C)
@@ -64,7 +64,7 @@ def run_reactor_simulation_final(fault_type='none', fault_time=80, fault_magnitu
     # Feed Flow Rate and Duration
     feed_duration_min = 120
     feed_duration_s = feed_duration_min * 60
-    target_mole_ratio = 1.23
+    target_mole_ratio = 1.2
     total_moles_A_to_add = moles_B_initial * target_mole_ratio
     required_feed_volume = total_moles_A_to_add / C_A_feed
     F_in = required_feed_volume / feed_duration_s
@@ -81,16 +81,16 @@ def run_reactor_simulation_final(fault_type='none', fault_time=80, fault_magnitu
     # Safety and Operational Clamps
     T_max = 358.15
     Agitator_Speed_max = 1200.0
-    Pressure_max = 1.5
+    Pressure_max = 1.4
 
     # PI Controller parameters (Corrected for reverse-acting cooling)
-    Kc = -0.8
+    Kc = -0.9
     tau_i = 5.1
     integral_error = 0.0
 
     # Noise parameters
-    noise_std_dev_UA = 165.0
-    noise_std_dev_feed = F_in * 0.02
+    noise_std_dev_UA = 170.0
+    noise_std_dev_feed = F_in * 0.01
     noise_std_dev_coolant = Coolant_Flow_max * 0.01
     noise_std_dev_temp_sensor = 0.1
 
@@ -233,7 +233,7 @@ def run_reactor_simulation_final(fault_type='none', fault_time=80, fault_magnitu
 
 if __name__ == '__main__':
     normal_data = run_reactor_simulation_final()
-    normal_data.to_csv('simdata/normal_operation_nitration_dynamic3.csv', index=False)
+    normal_data.to_csv('simdata/normal_operation_nitration_dynamic6.csv', index=False)
     print("Dynamic simulation complete. Data saved to 'normal_operation_nitration_dynamic.csv'")
 
     fig, axs = plt.subplots(4, 2, figsize=(16, 20))
