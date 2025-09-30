@@ -73,8 +73,8 @@ def runfault(filepath):
     df['Pressure_bar'] = df['Pressure_bar'].ewm(span=3, adjust=False).mean()
     df.loc[df['Time_min'] > 77, 'Coolant_Flow_m3_s'] = df.loc[df['Time_min'] > 77, 'Coolant_Flow_m3_s'] + 0.97
     max_ramp_length = 60  # number of points over which to ramp
-    min_values = [0.0022, 0.0018]#, 0.0012, 0.0004 ]
-    max_values = [0.0025, 0.002]#, 0.0015, 0.0008]
+    min_values = [0.0022, 0.0018, 0.0012, 0.0004]
+    max_values = [0.0025, 0.002, 0.0015, 0.0008]
     start_times = [46, 92]#, 112, 145]
 
     for start_time, min_val, max_val in zip(start_times, min_values, max_values):
@@ -89,10 +89,10 @@ def runfault(filepath):
         df.loc[start_idx:end_idx, 'Feed_Flow_m3_s'] = ramp_values
 
     df['Feed_Flow_m3_s'] = df['Feed_Flow_m3_s'].ewm(span=3, adjust=False).mean()
-    # df.loc[df['Time_min'] > 85, 'Coolant_delatT_K'] = df.loc[df['Time_min'] > 85, 'Coolant_delatT_K'] + 15
-    # df.loc[df['Time_min'] > 135, 'Coolant_delatT_K'] = df.loc[df['Time_min'] > 135, 'Coolant_delatT_K'] + 10
-    # df.loc[df['Time_min'] > 160, 'Coolant_delatT_K'] = df.loc[df['Time_min'] > 160, 'Coolant_delatT_K'] + 10
-    # df.loc[df['Time_min'] > 212, 'Coolant_delatT_K'] = df.loc[df['Time_min'] > 212, 'Coolant_delatT_K'] + 12
+    df.loc[df['Time_min'] > 85, 'Coolant_delatT_K'] = df.loc[df['Time_min'] > 85, 'Coolant_delatT_K'] + 15
+    df.loc[df['Time_min'] > 135, 'Coolant_delatT_K'] = df.loc[df['Time_min'] > 135, 'Coolant_delatT_K'] + 10
+    df.loc[df['Time_min'] > 160, 'Coolant_delatT_K'] = df.loc[df['Time_min'] > 160, 'Coolant_delatT_K'] + 10
+    df.loc[df['Time_min'] > 212, 'Coolant_delatT_K'] = df.loc[df['Time_min'] > 212, 'Coolant_delatT_K'] + 12
     df.loc[df['Time_min'] > 253, 'Coolant_delatT_K'] = df.loc[df['Time_min'] > 253, 'Coolant_delatT_K'] + 6
     df['Feed_Flow_m3_s'] = df['Feed_Flow_m3_s'].ewm(span=3, adjust=False).mean()
     return df
