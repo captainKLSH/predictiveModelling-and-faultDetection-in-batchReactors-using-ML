@@ -4,11 +4,11 @@ import matplotlib.pyplot as plt
 
 def preprocess(filepath,values):
     df=pd.read_csv(filepath,header= 0)
-    df=df.drop(['Temperature_K','Temperature_Setpoint_K','Benzene_Concentration_mol_m3', 'NitricAcid_Concentration_mol_m3'],axis=1)
+    df=df.drop(['Temperature_K','Temperature_Setpoint_K','AceticAcid_Concentration_mol_m3','Ethanol_Concentration_mol_m3'],axis=1)
     df= df.rename(columns={'Temperature_Measured_K':'ReactorTemp'})
     df = df.iloc[::5, :].reset_index(drop=True)
     # Filter dataframe for Time_min <= 78
-    df_segment = df[df['Time_min'] <= 78]
+    df_segment = df[df['Time_min'] <= 68]
 
     # Calculate how many times to repeat the values to cover df_segment length
     repeat_times = -(-len(df_segment) // len(values))  # Ceiling division
@@ -21,7 +21,7 @@ def preprocess(filepath,values):
     df['Smoothed_Temp'] = df['Coolant_Out_Temp_K'].ewm(span=20, adjust=False).mean()
     df=df.drop(['Coolant_Out_Temp_K'],axis=1)
     df=df.rename(columns={'Smoothed_Temp':'Coolant_Out_Temp_K'})
-    df.loc[df['Feed_Flow_m3_s'] < 0.002, 'Feed_Flow_m3_s'] = 0
+    #df.loc[df['Feed_Flow_m3_s'] < 0.002, 'Feed_Flow_m3_s'] = 0
     df['Coolant_delatT_K']= df['Coolant_Out_Temp_K']-df['Coolant_In_Temp_K']
     df=df.drop(['Coolant_Out_Temp_K','Coolant_In_Temp_K'],axis=1)
 
@@ -37,8 +37,8 @@ if __name__ == '__main__':
     336.2875021, 336.2390678, 324.4782052, 336.1221035, 336.073106, 336.0234377,
     317.4586577
     ])
-    filepath='simdata/normal_operation_nitration_dynamic6.csv'
+    filepath='simdata/normal_operation_esterification.csv'
     normal_data = preprocess(filepath,values)
-    normal_data.to_csv('../raw/normal/normalbatch6.csv', index=False)
+    normal_data.to_csv('../raw/Transferlearning/normalbatch.csv', index=False)
     print("Data saved to 'raw/normal/batch.csv'")
 

@@ -26,9 +26,9 @@ def run_reactor_simulation_final(fault_type='none', fault_time=80, fault_magnitu
     # 1. --- Constants and Initial Conditions ---
 
     # Reaction properties for Benzene Nitration
-    Ea = 8.3e4      # Activation Energy (J/mol)
+    Ea = 8e4      # Activation Energy (J/mol)
     R = 8.314       # Gas Constant (J/mol·K)
-    k0 = 2.86e8        # Pre-exponential factor (m^3/mol·s)
+    k0 = 3.3e6        # Pre-exponential factor (m^3/mol·s)
     deltaH = -1.35e5 # Heat of reaction (J/mol)
 
     # Physical Properties of individual components
@@ -56,7 +56,7 @@ def run_reactor_simulation_final(fault_type='none', fault_time=80, fault_magnitu
     Cp_final = 2200      # Estimated final mixture heat capacity (J/kg·K)
 
     # Reactor and Benzene Load
-    moles_B_initial_kmol = 100.0
+    moles_B_initial_kmol = 150.0
     moles_B_initial = moles_B_initial_kmol * 1000
     V0 = (moles_B_initial * MW_B / 1000) / rho_initial
     C_B0 = moles_B_initial / V0
@@ -79,7 +79,7 @@ def run_reactor_simulation_final(fault_type='none', fault_time=80, fault_magnitu
     V_reactor_max = V0 + required_feed_volume + 0.5
 
     # Safety and Operational Clamps
-    T_max = 358.15
+    T_max = 348.15
     Agitator_Speed_max = 1200.0
     Pressure_max = 1.4
 
@@ -113,7 +113,7 @@ def run_reactor_simulation_final(fault_type='none', fault_time=80, fault_magnitu
     T_setpoint[0] = T0 # Start setpoint at the initial reactor temperature
     C_A[0] = 0.0
     Tc_in_actual[0], Tc_out[0] = Tc_in, Tc_in
-    Pressure[0] = 1.2
+    Pressure[0] = 1.15
 
     # 3. --- The Simulation Loop ---
     for i in range(1, n_steps + 1):
@@ -233,7 +233,7 @@ def run_reactor_simulation_final(fault_type='none', fault_time=80, fault_magnitu
 
 if __name__ == '__main__':
     normal_data = run_reactor_simulation_final()
-    normal_data.to_csv('simdata/normal_operation_nitration_dynamic6.csv', index=False)
+    normal_data.to_csv('simdata/normal_operation_nitration_dynamic7.csv', index=False)
     print("Dynamic simulation complete. Data saved to 'normal_operation_nitration_dynamic.csv'")
 
     fig, axs = plt.subplots(4, 2, figsize=(16, 20))

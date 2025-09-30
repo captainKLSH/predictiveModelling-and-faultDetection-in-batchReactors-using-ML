@@ -224,7 +224,7 @@ def run_reactor_simulation_final(fault_type='none', fault_time=80, fault_magnitu
 
 if __name__ == '__main__':
     normal_data = run_reactor_simulation_final()
-    normal_data.to_csv('normal_operation_esterification.csv', index=False)
+    normal_data.to_csv('simdata/normal_operation_esterification.csv', index=False)
     print("Esterification simulation complete. Data saved to 'normal_operation_esterification.csv'")
 
     fig, axs = plt.subplots(4, 2, figsize=(16, 20))
