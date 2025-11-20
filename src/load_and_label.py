@@ -2,9 +2,9 @@ import pandas as pd
 import os
 
 DATA_DIR = 'raw'
-SUB_DIR1='normal'
-SUB_DIR2='faults'
-NORMAL_FILES = [f'normalbatch{i}.csv' for i in range(1, 8)]
+SUB_DIR1='Transferlearning'
+#SUB_DIR2='faults'
+NORMAL_FILES = [f'normalbatch{i}.csv' for i in range(1, 3)]
 # These files MUST have a 'fault_type' column added manually.
 FAULT_FILES = ['agitatorfault_L.csv', 'runawayfault_L.csv']
 
@@ -40,7 +40,7 @@ def load_and_label_data():
     # with 0 (Normal), 1 (Agitator Fault), or 2 (Runaway Fault).
     print("\nLoading manually labeled fault batch files...")
     for filename in FAULT_FILES:
-        filepath = os.path.join(DATA_DIR,SUB_DIR2, filename)
+        filepath = os.path.join(DATA_DIR,SUB_DIR1, filename)
         
         if not os.path.exists(filepath):
             print(f"  - WARNING: {filename} not found.")

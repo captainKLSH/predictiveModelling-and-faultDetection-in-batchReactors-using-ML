@@ -55,7 +55,7 @@ def run_reactor_simulation_final(fault_type='none', fault_time=80, fault_magnitu
     # Feed Flow Rate and Duration
     feed_duration_min = 120
     feed_duration_s = feed_duration_min * 60
-    target_mole_ratio = 1.1 # Ethanol to Acetic Acid
+    target_mole_ratio = 1.2 # Ethanol to Acetic Acid
     total_moles_A_to_add = moles_B_initial * target_mole_ratio
     required_feed_volume = total_moles_A_to_add / C_A_feed
     F_in = required_feed_volume / feed_duration_s
@@ -63,16 +63,16 @@ def run_reactor_simulation_final(fault_type='none', fault_time=80, fault_magnitu
     # Equipment and Operating Parameters
     base_UA = 7900
     UA_agitator_exponent = 0.67
-    T0 = 313.15 # Start at 40°C
+    T0 = 300.15 # Start at 40°C
     Tc_in = 298.15 # Fixed Coolant Inlet Temperature at 25°C
-    Agitator_Speed_base = 800
+    Agitator_Speed_base = 900
     Coolant_Flow_max = 1.0
     V_reactor_max = V0 + required_feed_volume + 0.5
 
     # Safety and Operational Clamps
-    T_max = 353.15 # Max temp 80°C (near boiling point of ethanol/ethyl acetate)
+    T_max = 343.15 # Max temp 80°C (near boiling point of ethanol/ethyl acetate)
     Agitator_Speed_max = 1200.0
-    Pressure_max = 1.5
+    Pressure_max = 1.3
 
     # PI Controller parameters
     Kc = -0.8
@@ -80,7 +80,7 @@ def run_reactor_simulation_final(fault_type='none', fault_time=80, fault_magnitu
     integral_error = 0.0
 
     # Noise parameters
-    noise_std_dev_UA = 165.0
+    noise_std_dev_UA = 145.0
     noise_std_dev_feed = F_in * 0.02
     noise_std_dev_coolant = Coolant_Flow_max * 0.01
     noise_std_dev_temp_sensor = 0.1
@@ -224,7 +224,7 @@ def run_reactor_simulation_final(fault_type='none', fault_time=80, fault_magnitu
 
 if __name__ == '__main__':
     normal_data = run_reactor_simulation_final()
-    normal_data.to_csv('simdata/normal_operation_esterification.csv', index=False)
+    normal_data.to_csv('simdata/normal_operation_esterification3.csv', index=False)
     print("Esterification simulation complete. Data saved to 'normal_operation_esterification.csv'")
 
     fig, axs = plt.subplots(4, 2, figsize=(16, 20))

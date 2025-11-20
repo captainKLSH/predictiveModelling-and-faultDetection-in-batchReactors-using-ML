@@ -9,10 +9,10 @@ def add_fluctuations(df, column='ReactorTemp', mean=2, std_dev=0.4):
 def agifault(filepath):
     df=pd.read_csv(filepath,header=0)
     df.loc[df['Time_min'] > 35, 'Agitator_Speed_rpm'] = 0
-    df.loc[df['Time_min'].isin([35, 40, 55, 66, 75]), 'ReactorTemp'] = 340
-    df.loc[df['Time_min'].isin([45, 70, 80, 120, 175,150,180,220,260,300]), 'ReactorTemp'] = 330
-    df.loc[df['Time_min'].isin([37, 44, 57, 69, 85]), 'ReactorTemp'] = 380
-    df.loc[df['Time_min'].isin([44, 74, 81, 123, 165,140,183,228,270,250]), 'ReactorTemp'] = 375
+    df.loc[df['Time_min'].isin([35, 40, 55, 66, 75]), 'ReactorTemp'] = 330
+    df.loc[df['Time_min'].isin([45, 70, 80, 120, 175,150,180,220,260,300]), 'ReactorTemp'] = 320
+    df.loc[df['Time_min'].isin([37, 44, 57, 69, 85]), 'ReactorTemp'] = 370
+    df.loc[df['Time_min'].isin([44, 74, 81, 123, 165,140,183,228,270,250]), 'ReactorTemp'] = 365
     df['ReactorTemp'] = df['ReactorTemp'].ewm(span=5, adjust=False).mean()
     df.loc[df['Time_min'] > 100, 'ReactorTemp'] = df.loc[df['Time_min'] > 100, 'ReactorTemp'] + 18
     df = add_fluctuations(df, 'ReactorTemp', std_dev=0.5)
@@ -73,9 +73,9 @@ def runfault(filepath):
     df['Pressure_bar'] = df['Pressure_bar'].ewm(span=3, adjust=False).mean()
     df.loc[df['Time_min'] > 77, 'Coolant_Flow_m3_s'] = df.loc[df['Time_min'] > 77, 'Coolant_Flow_m3_s'] + 0.97
     max_ramp_length = 60  # number of points over which to ramp
-    min_values = [0.0022, 0.0018, 0.0012, 0.0004]
-    max_values = [0.0025, 0.002, 0.0015, 0.0008]
-    start_times = [46, 92]#, 112, 145]
+    min_values = [0.0022, 0.0018, 0.0012]#, 0.0004]
+    max_values = [0.0025, 0.002, 0.0015]#, 0.0008]
+    start_times = [46, 92, 112]# 145]
 
     for start_time, min_val, max_val in zip(start_times, min_values, max_values):
         ramp_values = np.linspace(min_val, max_val, max_ramp_length)
@@ -98,15 +98,15 @@ def runfault(filepath):
     return df
 
 def main():
-    filepath = '../raw/Transferlearning/normalbatch.csv'  # Replace with your actual CSV file path
+    filepath = '../raw/Transferlearning/normalbatcht.csv'  # Replace with your actual CSV file path
     
     # # Call agitator fault function
-    # df_agi = agifault(filepath)
-    # df_agi.to_csv('../raw/Transferlearning/agitatorfault.csv', index=False)
+    df_agi = agifault(filepath)
+    df_agi.to_csv('../raw/Transferlearning/agitatorfaultt.csv', index=False)
 
     # Call run fault function
     df_run = runfault(filepath)
-    df_run.to_csv('../raw/Transferlearning/runawayfault.csv', index=False)
+    df_run.to_csv('../raw/Transferlearning/runawayfaultt.csv', index=False)
 
 if __name__ == '__main__':
     main()

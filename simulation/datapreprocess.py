@@ -37,8 +37,8 @@ if __name__ == '__main__':
     336.2875021, 336.2390678, 324.4782052, 336.1221035, 336.073106, 336.0234377,
     317.4586577
     ])
-    filepath='simdata/normal_operation_esterification.csv'
+    filepath='simdata/normal_operation_esterification2.csv'
     normal_data = preprocess(filepath,values)
-    normal_data.to_csv('../raw/Transferlearning/normalbatch.csv', index=False)
+    normal_data.to_csv('../raw/Transferlearning/normalbatcht.csv', index=False)
     print("Data saved to 'raw/normal/batch.csv'")
 
