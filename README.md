@@ -1,4 +1,5 @@
-# Process Monitoring and Fault Diagnosis with Artificial Neural Network (ANN) in Batch Reactor
+# Process Monitoring and Fault Diagnosis with LSTMs(Long Short-Term Memory) in Batch Reactor
+
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
 ![TensorFlow](https://img.shields.io/badge/TensorFlow-2.17%2B-orange)
 ![Architecture](https://img.shields.io/badge/Model-GAT%20%2B%20RL-purple)
